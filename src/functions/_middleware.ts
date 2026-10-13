@@ -157,6 +157,20 @@ export const onRequest: PagesFunction<MiddlewareEnv> = async (context) => {
   const url = new URL(context.request.url);
   const method = context.request.method.toUpperCase();
 
+  // 自托管版：/i/{id} 路径直接走图片路由
+  if (url.pathname.startsWith("/i/")) {
+    if (method !== "GET" && method !== "HEAD") {
+      return new Response("Method Not Allowed", { status: 405, headers: { Allow: "GET, HEAD" } });
+    }
+    const flags = await loadFeatureFlags(context.env.BUCKET);
+    if (!flags.imageHost) return sitesNotFound();
+    const route = resolveSitesHostRoute(url.pathname, flags);
+    if (route.kind === "image") {
+      return serveImage(context.env.BUCKET, route.id, method === "HEAD");
+    }
+    return sitesNotFound();
+  }
+
   // 自托管版：/sites/ 路径直接走公开站路由，不需要双域名
   if (url.pathname.startsWith("/sites/") || url.pathname === "/sites") {
     if (method !== "GET" && method !== "HEAD") {

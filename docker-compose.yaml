@@ -1,0 +1,15 @@
+services:
+  yto-sd:
+    build: .
+    container_name: yto-sd
+    ports:
+      - "8866:8788"
+      - "8867:8867"
+    volumes:
+      - ${wizard_data_dir}:/data
+    environment:
+      - WEBDAV_USERNAME=${wizard_username}
+      - WEBDAV_PASSWORD=${wizard_password}
+      - WEBDAV_PUBLIC_READ=0
+      - SITES_HOST=${wizard_sites_host:-}
+    restart: unless-stopped

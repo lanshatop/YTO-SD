@@ -1,0 +1,13 @@
+name = "davflare"
+pages_build_output_dir = "build"
+compatibility_date = "2024-06-20"
+
+[vars]
+WEBDAV_PUBLIC_READ = "0"
+WEBDAV_USERNAME = "admin"
+SITES_HOST = "img.ruihan.xin"
+
+[[r2_buckets]]
+binding = "BUCKET"
+bucket_name = "davflare"
+# trigger redeploy to pick up WEBDAV_PASSWORD secret
