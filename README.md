@@ -12,7 +12,7 @@
 
 ## 部署
 
-1. 下载最新版本 `yto-sd_1.2.6.fpk`
+1. 下载最新版本 `yto-sd_1.2.8.fpk`
 2. 飞牛OS → 应用中心 → 手动安装 → 选择 FPK 文件
 3. 按向导填写用户名、密码、数据目录
 
@@ -24,6 +24,12 @@
 - 外网：`https://your-fnos-domain/sites/{slug}/` 或 `https://your-fnos-domain/i/{id}`
 
 ## 更新日志
+
+### v1.2.8
+- 未登录时隐藏主界面，只显示登录弹窗
+
+### v1.2.7
+- 修复发布公开目录时 worker 内存不足重启问题（改用 R2 原生 copy API）
 
 ### v1.2.6
 - 修复图床上传 500 错误（`contentTypeHeader.split(";").trim()` bug）
